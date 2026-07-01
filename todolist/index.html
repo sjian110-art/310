@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clay Todo List</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="todo-card">
+    <h1>Todo List</h1>
+
+    <div class="input-box">
+      <input type="text" id="todoInput" placeholder="할 일을 입력하세요" />
+      <button id="addBtn">추가</button>
+    </div>
+
+    <div class="filter-box">
+      <button class="filter active" data-filter="all">전체</button>
+      <button class="filter" data-filter="active">진행중</button>
+      <button class="filter" data-filter="completed">완료</button>
+    </div>
+
+    <ul id="todoList"></ul>
+
+    <p class="count">남은 할 일: <span id="todoCount">0</span>개</p>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
