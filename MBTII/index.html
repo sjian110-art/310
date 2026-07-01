@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>초등 MBTI 과학 실험실</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Pretendard', 'system-ui', 'sans-serif'] },
+          boxShadow: { glow: '0 0 35px rgba(56, 189, 248, 0.35)' }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-slate-950 text-white overflow-x-hidden">
+  <div class="fixed inset-0 -z-10">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,.35),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,.25),transparent_35%)]"></div>
+    <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(125,211,252,.15) 1px, transparent 1px), linear-gradient(90deg, rgba(125,211,252,.15) 1px, transparent 1px); background-size: 48px 48px;"></div>
+  </div>
+
+  <main class="max-w-5xl mx-auto px-5 py-8">
+    <header class="flex items-center justify-between gap-4 mb-8">
+      <div>
+        <p class="text-sky-300 text-sm font-bold tracking-[.25em]">BLUE LAB MBTI TEST</p>
+        <h1 class="text-3xl md:text-5xl font-black mt-2">나의 성격 실험실 🧪</h1>
+      </div>
+      <div class="hidden sm:flex w-20 h-20 rounded-full bg-sky-400/10 border border-sky-300/40 items-center justify-center shadow-glow text-4xl">🔬</div>
+    </header>
+
+    <section id="startPage" class="rounded-[2rem] border border-sky-300/30 bg-white/10 backdrop-blur-xl shadow-glow p-7 md:p-10">
+      <div class="grid md:grid-cols-[1.1fr_.9fr] gap-8 items-center">
+        <div>
+          <span class="inline-flex rounded-full bg-sky-400/20 px-4 py-2 text-sky-200 text-sm font-bold border border-sky-300/30">초등학생 맞춤형 질문</span>
+          <h2 class="text-3xl md:text-5xl font-black mt-5 leading-tight">친구처럼 쉬운 질문으로<br />나의 성격 유형을 찾아봐요!</h2>
+          <p class="text-slate-300 mt-5 leading-7">한 번에 한 문제씩 답하고, 마지막에 저장하기를 누르면 MBTI 유형과 재미있는 분석 결과가 나와요.</p>
+          <div class="mt-7 flex flex-col sm:flex-row gap-3">
+            <input id="studentName" type="text" placeholder="이름을 입력하세요" class="w-full sm:w-72 rounded-2xl bg-slate-900/70 border border-sky-300/30 px-5 py-4 outline-none focus:ring-4 focus:ring-sky-400/30" />
+            <button id="startBtn" class="rounded-2xl bg-sky-400 hover:bg-sky-300 text-slate-950 font-black px-7 py-4 transition active:scale-95">검사 시작하기</button>
+          </div>
+        </div>
+        <div class="rounded-[2rem] bg-slate-900/70 border border-sky-300/20 p-6 relative overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-sky-400/20 blur-2xl"></div>
+          <div class="text-7xl mb-5">⚗️</div>
+          <p class="text-sky-200 font-bold">검사 방법</p>
+          <ul class="mt-4 space-y-3 text-slate-300">
+            <li>1. 이름을 쓰고 시작해요.</li>
+            <li>2. 한 질문에 하나만 선택해요.</li>
+            <li>3. 마지막에 저장하기를 눌러요.</li>
+            <li>4. 나만의 성격 리포트를 확인해요.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="quizPage" class="hidden rounded-[2rem] border border-sky-300/30 bg-white/10 backdrop-blur-xl shadow-glow p-6 md:p-10">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <p id="progressText" class="text-sky-200 font-bold"></p>
+          <h2 class="text-2xl md:text-4xl font-black mt-2">성격 반응 실험 중...</h2>
+        </div>
+        <div class="text-4xl">🧬</div>
+      </div>
+      <div class="w-full h-4 bg-slate-800 rounded-full overflow-hidden border border-sky-300/20 mb-8">
+        <div id="progressBar" class="h-full bg-sky-400 rounded-full transition-all duration-500"></div>
+      </div>
+
+      <article class="rounded-[1.8rem] bg-slate-900/75 border border-sky-300/20 p-6 md:p-8">
+        <p id="questionBadge" class="text-sky-300 text-sm font-black tracking-widest"></p>
+        <h3 id="questionTitle" class="text-2xl md:text-4xl font-black mt-3 leading-snug"></h3>
+        <div id="optionsBox" class="grid gap-4 mt-8"></div>
+      </article>
+
+      <div class="flex justify-between mt-7 gap-3">
+        <button id="prevBtn" class="rounded-2xl bg-slate-800 hover:bg-slate-700 border border-sky-300/20 px-6 py-4 font-bold transition disabled:opacity-40 disabled:cursor-not-allowed">이전</button>
+        <button id="nextBtn" class="rounded-2xl bg-sky-400 hover:bg-sky-300 text-slate-950 px-6 py-4 font-black transition active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed">다음</button>
+      </div>
+    </section>
+
+    <section id="resultPage" class="hidden rounded-[2rem] border border-sky-300/30 bg-white/10 backdrop-blur-xl shadow-glow p-6 md:p-10">
+      <div class="text-center">
+        <p class="text-sky-300 font-black tracking-[.25em]">EXPERIMENT RESULT</p>
+        <h2 id="resultTitle" class="text-4xl md:text-6xl font-black mt-4"></h2>
+        <p id="resultSub" class="text-slate-300 mt-4 text-lg"></p>
+      </div>
+      <div id="resultCards" class="grid md:grid-cols-2 gap-5 mt-10"></div>
+      <div class="mt-8 flex flex-col sm:flex-row justify-center gap-3">
+        <button id="restartBtn" class="rounded-2xl bg-slate-800 hover:bg-slate-700 border border-sky-300/20 px-7 py-4 font-bold transition">다시 검사하기</button>
+        <button id="printBtn" class="rounded-2xl bg-sky-400 hover:bg-sky-300 text-slate-950 px-7 py-4 font-black transition">결과 인쇄하기</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
