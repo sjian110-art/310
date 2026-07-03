@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    match /users/{uid} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && request.auth.uid == uid;
+    }
+
+    match /sessions/{sessionId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update: if isSignedIn(); // 데모용: 운영 시 teacherId 검증 로직 추가 권장
+
+      match /players/{uid} {
+        allow read: if isSignedIn();
+        allow write: if isSignedIn() && request.auth.uid == uid;
+      }
+
+      match /rounds/{roundId}/submissions/{uid} {
+        allow read: if isSignedIn();
+        allow create: if isSignedIn() && request.auth.uid == uid;
+        allow update: if isSignedIn(); // 투표수 증가 허용 (데모용)
+      }
+    }
+
+    match /hallOfFame/{entryId} {
+      allow read: if true;
+      allow create: if isSignedIn();
+    }
+  }
+}

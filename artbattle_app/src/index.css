@@ -1,0 +1,150 @@
+:root {
+  --wall: #f1ece3;
+  --wall-dim: #e7ded0;
+  --ink: #1b1b18;
+  --ink-soft: #55524a;
+  --frame: #24463f;
+  --frame-dim: #14211d;
+  --gold: #c98a3b;
+  --sienna: #a8481f;
+  --card: #fffdf8;
+  --line: #d9cfba;
+  --radius: 4px;
+
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Space Grotesk', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--wall);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+a { color: inherit; }
+
+button, input, textarea, select {
+  font-family: inherit;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- 액자(프레임) 카드 시스템 : 시그니처 요소 ---------- */
+.framed {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+.framed::before,
+.framed::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--frame);
+  opacity: 0.55;
+}
+.framed::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.framed::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+/* 붓터치 언더라인 */
+.brush-underline {
+  position: relative;
+  display: inline-block;
+}
+.brush-underline svg {
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  bottom: -8px;
+  width: calc(100% + 8px);
+  height: 10px;
+}
+
+.btn {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 15px;
+  padding: 12px 22px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary {
+  background: var(--frame);
+  color: var(--wall);
+}
+.btn-primary:hover { background: var(--frame-dim); }
+.btn-secondary {
+  background: transparent;
+  color: var(--frame);
+  border-color: var(--frame);
+}
+.btn-secondary:hover { background: rgba(36,70,63,0.08); }
+.btn-gold {
+  background: var(--gold);
+  color: #241505;
+}
+.btn-gold:hover { filter: brightness(1.05); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sienna);
+}
+
+.input, textarea.input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--card);
+  font-size: 15px;
+  color: var(--ink);
+}
+.input:focus, textarea.input:focus {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+.code-chip {
+  font-family: var(--font-mono);
+  font-size: 32px;
+  letter-spacing: 0.12em;
+  background: var(--frame);
+  color: var(--wall);
+  padding: 10px 22px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+::selection { background: var(--gold); color: #241505; }
+
+@media (max-width: 640px) {
+  .framed { padding: 20px; }
+}
